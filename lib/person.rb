@@ -14,29 +14,19 @@ class Person
   end
 
   #to keep index levels between 0 and 10
-  def min_max(number)
-    if number > 10
-      return 10
-    elsif number < 0
-      return 0
-    else
-      number
-    end
-  end
+  # def min_max(number)
+  # end
 
   def happiness=(new_index)
-    @happiness = min_max(new_index)
+    @happiness = new_index
+    @happiness = 10 if new_index > 10
+    @happiness = 0 if new_index < 0
   end
 
   def hygiene=(new_index)
-    # if new_index > 10
-    #   @hygiene = 10
-    # elsif new_index < 0
-    #   @hygiene = 0
-    # else
-    #   @hygiene = new_index
-    # end
-    @hygiene = min_max(new_index)
+    @hygiene = new_index
+    @hygiene = 10 if new_index > 10
+    @hygiene = 0 if new_index < 0
   end
 
   def happy?
@@ -53,34 +43,33 @@ class Person
   end
 
   def take_bath
-    @hygiene = min_max(@hygiene + 4)
+    self.hygiene += 4
     return "♪ Rub-a-dub just relaxing in the tub ♫"
   end
 
   def work_out
-    @hygiene=(min_max(@hygiene - 3))
-    @happiness = min_max(@happiness + 2)
+    self.hygiene -= 3
+    self.happiness += 2
     return "♪ another one bites the dust ♫"
   end
 
   def call_friend(person)
-    person.happiness = min_max(person.happiness + 3)
-    @happiness = min_max(@happiness + 3)
+    person.happiness += 3
+    self.happiness += 3
     return "Hi #{person.name}! It's #{@name}. How are you?"
   end
 
   def start_conversation(person, topic)
-    if topic = "politics"
-      @happiness = min_max(@happiness - 2)
-      person.happiness = min_max(person.happiness - 2)
-      return 'blah blah partisan blah lobbyist'
-    elsif topic = "weather"
-      @happiness = min_max(@happiness + 1)
-      person.happiness = min_max(person.happiness + 1)
-      return 'blah blah sun blah rain'
-    elsif topic != "politics" && topic != "weather"
-      #does not affect happiness
-      return "blah blah blah blah blah" 
+    if topic == "politics"
+      self.happiness -= 2
+      person.happiness -= 2
+      'blah blah partisan blah lobbyist'
+    elsif topic == "weather"
+       self.happiness+=1
+       person.happiness+=1
+       "blah blah sun blah rain"
+    else
+      "blah blah blah blah blah" 
     end
   end
 
